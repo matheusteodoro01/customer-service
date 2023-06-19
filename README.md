@@ -59,20 +59,24 @@ Primeiro instale as dependências:
 yarn
 ```
 
-Copie o arquivo .env.example para .env preencheando com os valores corretos:
+A aplicação é executada em um container Docker com Redis, que já possui as variáveis de ambiente definidas no arquivo docker-compose.yml. Além disso, utiliza o Keycloak para autenticação, verificando a assinatura de cada token recebido nas requisições. Para utilizar o Keycloak, é necessário definir a URL do certificado para o realm desejado. Siga as instruções abaixo para configurar a URL do certificado do Keycloak:
 
-```
-cp .env.example .env
+Abra o arquivo docker-compose.yml da aplicação.
+Procure pela seção de variáveis de ambiente e adicione a seguinte linha:
+
+```bash
+# defina nas env da aplicação no docker-compose
+- KEYCLOAK_CERT_URL={URL_DO_KEYCLOAK}/auth/realms/{SEU_REALM}/protocol/openid-connect/certs
 ```
 
-Após isso basta executar o comando:
+Após isso basta ter o docker instalado e executar o comando:
 
 ```bash
 # development
-$ npm run start
+$ docker-compose up
 
 # production mode
-$ npm run start:prod
+$ docker-compose up
 ```
 
 ## Test
@@ -84,6 +88,72 @@ $ npm run test:unit
 # test coverage
 $ npm run test:cov
 ```
+
+```
+## Endpoints da Aplicação
+
+A seguir estão os endpoints disponíveis na aplicação, juntamente com suas funcionalidades e requisitos de autenticação:
+
+### 1. Buscar customer por ID
+
+Retorna as informações de um customer específico com base no ID fornecido.
+
+- **URL:** `/customers/{id}`
+- **Método:** GET
+- **Parâmetros de URL:**
+  - `{id}`: ID do customer a ser buscado.
+- **Requisitos de Autenticação:** Bearer Token válido.
+
+### 2. Atualizar customer por ID
+
+Atualiza as informações de um customer específico com base no ID fornecido.
+
+- **URL:** `/customers/{id}`
+- **Método:** PUT
+- **Parâmetros de URL:**
+  - `{id}`: ID do customer a ser atualizado.
+- **Corpo da Requisição:**
+  - `name`: Nome do customer (String).
+  - `document`: Documento do customer (Number).
+- **Requisitos de Autenticação:** Bearer Token válido.
+
+### 3. Salvar customer
+
+Salva um novo customer na aplicação.
+
+- **URL:** `/customers`
+- **Método:** POST
+- **Corpo da Requisição:**
+  - `name`: Nome do customer (String).
+  - `document`: Documento do customer (Number).
+- **Requisitos de Autenticação:** Bearer Token válido.
+
+### Campos do Customer
+
+O customer possui os seguintes campos:
+
+- `id`: ID do customer (UUID).
+- `name`: Nome do customer.
+- `document`: Documento do customer.
+
+Certifique-se de incluir esses campos corretamente no corpo da requisição ao atualizar ou salvar um customer.
+
+### Requisitos de Autenticação
+
+Para acessar os endpoints mencionados acima, é necessário fornecer um Bearer Token válido no cabeçalho de autorização da requisição. O token deve ser obtido por meio do processo de autenticação utilizando o Keycloak.
+
+Certifique-se de incluir o cabeçalho `Authorization` nas requisições com o seguinte formato:
+
+```
+Authorization: Bearer <token>
+```
+
+Substitua `<token>` pelo valor do seu token de autenticação válido a partir do mesmo keycloak na mesma Realm que voce pegou a URL que contem a chave publica.
+
+É importante garantir que o token esteja presente e seja válido para cada uma das requisições feitas aos endpoints acima. Caso contrário, a autenticação será negada e as operações não serão executadas com sucesso.
+```
+```
+
 
 ## Stay in touch
 

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  customer-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - REDIS_USER_NAME=default
+      - REDIS_PASSWORD=my_secret_password
+      - REDIS_DB=0
+      - KEYCLOAK_CERT_URL=https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/certs
+  redis:
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=my_secret_password
+    ports:
+      - 6379:6379
