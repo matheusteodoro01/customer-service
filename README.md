@@ -21,7 +21,6 @@ autorização de acesso às operações disponíveis.
 
 Foi aplicado o design de arquitetura "Clean Architecture", pois facilita a separação do negócio (core) das regras de infraestrutura (frameworks, clouds, etc).
 
-<img src="./doc/images/clean-architecture.png" alt="drawing" width="400"/>
 
 A camada externa acessa a camada interna, utilizando a injeção de dependência, é possível isolar o core da aplicação dos frameworks utilizados.
 
