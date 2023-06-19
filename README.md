@@ -89,7 +89,6 @@ $ npm run test:unit
 $ npm run test:cov
 ```
 
-```
 ## Endpoints da Aplicação
 
 A seguir estão os endpoints disponíveis na aplicação, juntamente com suas funcionalidades e requisitos de autenticação:
@@ -151,8 +150,7 @@ Authorization: Bearer <token>
 Substitua `<token>` pelo valor do seu token de autenticação válido a partir do mesmo keycloak na mesma Realm que voce pegou a URL que contem a chave publica.
 
 É importante garantir que o token esteja presente e seja válido para cada uma das requisições feitas aos endpoints acima. Caso contrário, a autenticação será negada e as operações não serão executadas com sucesso.
-```
-```
+
 
 
 ## Stay in touch
