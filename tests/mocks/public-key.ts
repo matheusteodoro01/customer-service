@@ -1,0 +1,17 @@
+export const makePublicKey = {
+  keys: [
+    {
+      kid: '2Lf-jaQyvfA3B7wiTvwVLa25upxb_5-AxYH8fcy2HxU',
+      kty: 'RSA',
+      alg: 'RS256',
+      use: 'sig',
+      n: 'isBjwRkYD1u3JtD1egw2CCKDtgxAb5X_N7DfXIx9YZcw7Au1DLeSHrM-CeSEpQkUFEPGLCVcVSV76GXeTfqde_Sp2-_C0FsAFUl0tNAZ1lg3f8BXtorAlMDrpmKhyxOcv9GzKBof7fODjOTAqrDvL5AQibHGUVYmSGHEIMoYicA_yDJXDLMcEzJxqzaCL3CD29HPQdRbGJ9_-iX5mYfDTqVgAI5VzEHNC6ViIDWCOums_MFW9E12m0LU0psf2tMvIPmtsdSYSEYJLBUtWimAIWORZCtkiYbBypc6cTgohIgGhyMbUPHRdkQe9VZTqi1ot3hCzFguz8gZlF0_a660lw',
+      e: 'AQAB',
+      x5c: [
+        'MIICnTCCAYUCBgF+MJEQSzANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdjYXJlZXJzMB4XDTIyMDEwNjE4MDM0MFoXDTMyMDEwNjE4MDUyMFowEjEQMA4GA1UEAwwHY2FyZWVyczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIrAY8EZGA9btybQ9XoMNggig7YMQG+V/zew31yMfWGXMOwLtQy3kh6zPgnkhKUJFBRDxiwlXFUle+hl3k36nXv0qdvvwtBbABVJdLTQGdZYN3/AV7aKwJTA66ZiocsTnL/RsygaH+3zg4zkwKqw7y+QEImxxlFWJkhhxCDKGInAP8gyVwyzHBMycas2gi9wg9vRz0HUWxiff/ol+ZmHw06lYACOVcxBzQulYiA1gjrprPzBVvRNdptC1NKbH9rTLyD5rbHUmEhGCSwVLVopgCFjkWQrZImGwcqXOnE4KISIBocjG1Dx0XZEHvVWU6otaLd4QsxYLs/IGZRdP2uutJcCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEASpksb0JBmkADzU6FMzJe4Vxf+eoyl1jCnCmKeayw04odsdYKLSjUNxAxrlgmHdJ+tc+U8mOocJQaK+xoww7by190utZQv+Bgrpk6qUmpD8dD0O2q9+FTi1mdPzpF+qOct50U13nPMBITWZDCcVg7+ePfdaPWQhl825Qp4UzVGk199fh+nEp1ypp4EV6DHvPGQYmEMoU+Ov2r60huo9RhcwWbktlW1URBjUkv0iz09dF4Dr7vzkyiW8KGsHaO1npZFunFwLBR4gIIYvCNCTIez2MIetTSEil3cql+wlS2y/qBgCTR2b6uv4E4ZBxBFm8rmLY9/jaS5Pc09a5dDivVXQ==',
+      ],
+      x5t: '1_cKeCi-_zyxjrE6s97sdk1iDVs',
+      'x5t#S256': '8fxXdYsZZO67jlDtZSM8XyBKtlFXfd0Zk1xWS8XZksk',
+    },
+  ],
+};
