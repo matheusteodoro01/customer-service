@@ -1,6 +1,6 @@
-import { getPublicKey } from '@/infra/common/get-public-key';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
+import { getPublicKey } from './get-public-key';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
