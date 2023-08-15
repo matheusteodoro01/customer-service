@@ -1,5 +1,9 @@
 import { ZodError } from 'zod';
-import { HttpStatus } from '@nestjs/common';
+import {
+  ForbiddenException,
+  HttpStatus,
+  UnauthorizedException,
+} from '@nestjs/common';
 import {
   CacheNotAvailableError,
   NotFoundError,
@@ -13,6 +17,10 @@ export const getErrorStatusCode = (error: unknown): HttpStatus => {
   }
 
   switch (error.constructor) {
+    case ForbiddenException:
+      return HttpStatus.FORBIDDEN;
+    case UnauthorizedException:
+      return HttpStatus.UNAUTHORIZED;
     case UnauthorizedError:
       return HttpStatus.UNAUTHORIZED;
     case ZodError:

@@ -5,7 +5,7 @@ import {
   UpdateCustomerUseCase,
 } from '@/domain/usecases';
 import { infra } from '@/infra/common/ioc';
-import { CustomerController } from '@/infra/controlers';
+import { AuthController, CustomerController } from '@/infra/controlers';
 import { Module } from '@nestjs/common';
 import { EnvironmentModule } from './environment.module';
 import { CustomerRepositoriesModule } from './customer-repositories.module';
@@ -32,6 +32,6 @@ import { CustomerRepositoriesModule } from './customer-repositories.module';
       inject: [infra.repositories.customerRepository],
     },
   ],
-  controllers: [CustomerController],
+  controllers: [CustomerController, AuthController],
 })
 export class CustomerModule {}

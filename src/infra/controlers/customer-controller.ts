@@ -11,9 +11,7 @@ import {
   Param,
   Inject,
   Put,
-  UseInterceptors,
-  HttpCode,
-  HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import {
   saveCustomerDto,
@@ -21,10 +19,14 @@ import {
   updateCustomerDto,
 } from '@/infra/dto';
 import { domain } from '@/domain/common/ioc';
-import { AuthInterceptor } from '../common/auth-interceptor';
+
+import { RoleMatchingMode, Roles } from '../auth/role.decorator';
+import { AuthGuard } from '../auth/jwt.guard';
+import { RoleGuard } from '../auth/role.guard';
 
 @Controller('customer')
-@UseInterceptors(AuthInterceptor)
+@UseGuards(AuthGuard)
+@UseGuards(RoleGuard)
 export class CustomerController {
   constructor(
     @Inject(domain.usecases.saveCustomer)
@@ -35,17 +37,19 @@ export class CustomerController {
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
   ) {}
 
+  @Roles({ roles: ['admin'], mode: RoleMatchingMode.ANY })
   @Post()
-  @HttpCode(HttpStatus.CREATED)
   async save(@Body() data: any) {
     return await this.creteCustomerUseCase.execute(saveCustomerDto.parse(data));
   }
 
+  @Roles({ roles: ['user', 'admin'], mode: RoleMatchingMode.ANY })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.getCustomerUseCase.execute(getCustomerDto.parse({ id }));
   }
 
+  @Roles({ roles: ['admin'], mode: RoleMatchingMode.ALL })
   @Put(':id')
   async update(@Param('id') id: string, @Body() data: any) {
     return await this.updateCustomerUseCase.execute(
