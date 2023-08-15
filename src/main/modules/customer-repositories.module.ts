@@ -15,7 +15,6 @@ import Redis from 'ioredis';
         infra.environment.redisUsername,
         infra.environment.redisPassword,
         infra.environment.redisDb,
-        infra.environment.env,
       ],
     },
     {

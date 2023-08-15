@@ -1,7 +1,8 @@
 export const infra = {
   environment: {
-    env: Symbol.for('Environment'),
-    keycloakCertUrl: Symbol.for('KeycloakCertUrl'),
+    keycloakClient: Symbol.for('KeycloakClient'),
+    keycloakClientSecret: Symbol.for('KeycloakClientSecret'),
+    keycloakBaseUrl: Symbol.for('KeycloakBaseUrl'),
     redisPort: Symbol.for('RedisPort'),
     redisHost: Symbol.for('RedisHost'),
     redisUsername: Symbol.for('RedisUserName'),

@@ -1,9 +1,11 @@
 import { Module, Global } from '@nestjs/common';
 import { infra } from '@/infra/common/ioc';
 import { z } from 'zod';
-import 'dotenv/config'
+import 'dotenv/config';
 const envSchema = z.object({
-  KEYCLOAK_CERT_URL: z.string(),
+  KEYCLOAK_BASE_URL: z.string(),
+  KEYCLOAK_CLIENT: z.string(),
+  KEYCLOAK_CLIENT_SECRET: z.string(),
   REDIS_PORT: z.string(),
   REDIS_HOST: z.string(),
   REDIS_USER_NAME: z.string(),
@@ -17,27 +19,30 @@ const envSchema = z.object({
 export class EnvironmentModule {
   static forRoot() {
     const {
-      KEYCLOAK_CERT_URL,
+      KEYCLOAK_BASE_URL,
+      KEYCLOAK_CLIENT,
+      KEYCLOAK_CLIENT_SECRET,
       REDIS_PORT,
       REDIS_HOST,
       REDIS_USER_NAME,
       REDIS_PASSWORD,
       REDIS_DB,
-      ENVIRONMENT,
     } = envSchema.parse(process.env);
-
-
 
     return {
       module: EnvironmentModule,
       providers: [
         {
-          provide: infra.environment.env,
-          useValue: ENVIRONMENT,
+          provide: infra.environment.keycloakBaseUrl,
+          useValue: KEYCLOAK_BASE_URL,
         },
         {
-          provide: infra.environment.keycloakCertUrl,
-          useValue: KEYCLOAK_CERT_URL,
+          provide: infra.environment.keycloakClient,
+          useValue: KEYCLOAK_CLIENT,
+        },
+        {
+          provide: infra.environment.keycloakClientSecret,
+          useValue: KEYCLOAK_CLIENT_SECRET,
         },
         {
           provide: infra.environment.redisPort,
@@ -61,8 +66,9 @@ export class EnvironmentModule {
         },
       ],
       exports: [
-        infra.environment.env,
-        infra.environment.keycloakCertUrl,
+        infra.environment.keycloakBaseUrl,
+        infra.environment.keycloakClient,
+        infra.environment.keycloakClientSecret,
         infra.environment.redisPort,
         infra.environment.redisHost,
         infra.environment.redisUsername,
