@@ -1,4 +1,10 @@
 version: '3'
+
+volumes:
+  mysql_data:
+      driver: local
+
+
 services:
   customer-service:
     build:
