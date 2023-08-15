@@ -23,10 +23,14 @@ import { domain } from '@/domain/common/ioc';
 import { RoleMatchingMode, Roles } from '../auth/role.decorator';
 import { AuthGuard } from '../auth/jwt.guard';
 import { RoleGuard } from '../auth/role.guard';
+import { ResourceGuard } from '../auth/resource.guard';
+import { Resource } from '../auth/resource.decorator';
 
-@Controller('customer')
 @UseGuards(AuthGuard)
 @UseGuards(RoleGuard)
+@UseGuards(ResourceGuard)
+@Resource('customer')
+@Controller('customer')
 export class CustomerController {
   constructor(
     @Inject(domain.usecases.saveCustomer)

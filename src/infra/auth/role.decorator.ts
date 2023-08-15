@@ -5,18 +5,10 @@ export enum RoleMatchingMode {
   ANY = 'any',
 }
 
-export interface RoleDecoratorOptionsInterface {
+export type RoleDecoratorOptions = {
   roles: string[];
-  /**
-   * Role matching mode, defaults to {@link RoleMatchingMode.ANY}
-   */
   mode: RoleMatchingMode;
-}
+};
 
-/**
- * Keycloak user roles.
- * @param roleMetaData - meta data for roles and matching mode
- * @since 1.1.0
- */
-export const Roles = (roleMetaData: RoleDecoratorOptionsInterface) =>
+export const Roles = (roleMetaData: RoleDecoratorOptions) =>
   SetMetadata('roles', roleMetaData);

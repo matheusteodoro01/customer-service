@@ -2,38 +2,8 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import jwt_decode from 'jwt-decode';
 import { Observable } from 'rxjs';
-import {
-  RoleDecoratorOptionsInterface,
-  RoleMatchingMode,
-} from './role.decorator';
-
-type TokenPayload = {
-  exp: number;
-  iat: number;
-  jti: string;
-  iss: string;
-  aud: string;
-  sub: string;
-  typ: string;
-  azp: string;
-  session_state: string;
-  acr: string;
-  'allowed-origins': string[];
-  realm_access: {
-    roles: string[];
-  };
-  resource_access: {
-    [key: string]: {
-      roles: string[];
-    };
-  };
-  scope: string;
-  sid: string;
-  email_verified: boolean;
-  preferred_username: string;
-  given_name: string;
-  family_name: string;
-};
+import { RoleDecoratorOptions, RoleMatchingMode } from './role.decorator';
+import { JwtModel } from './jtw-model';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -42,15 +12,14 @@ export class RoleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const { roles, mode } = this.reflector.get<RoleDecoratorOptionsInterface>(
+    const { mode, roles } = this.reflector.get<RoleDecoratorOptions>(
       'roles',
       context.getHandler(),
     );
-    if (!roles) return true;
     const request = context.switchToHttp().getRequest();
     const token = request.headers.authorization?.replace('Bearer ', '');
     const allowRoles =
-      jwt_decode<TokenPayload>(token).resource_access['customer'].roles;
+      jwt_decode<JwtModel>(token).resource_access['customer']?.roles ?? [];
 
     if (mode === RoleMatchingMode.ALL) {
       const set1 = new Set(allowRoles);
